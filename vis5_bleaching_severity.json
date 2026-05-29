@@ -1,0 +1,223 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Coral Bleaching Severity at GBR Survey Sites, 1998–2017",
+    "subtitle": "Each bar shows how many sites recorded each bleaching severity level that year — 2016 marks an unprecedented step change",
+    "subtitleColor": "#3d5a73",
+    "subtitleFont": "DM Sans",
+    "subtitleFontSize": 15
+  },
+  "width": "container",
+  "height": 420,
+  "data": {
+    "url": "coral_bleaching_multifactor_dataset.csv"
+  },
+  "transform": [
+    {
+      "filter": "datum.LAT >= -25 && datum.LAT <= -10 && datum.LON >= 142 && datum.LON <= 155"
+    },
+    {
+      "calculate": "datum.Seve2 == 0 ? 'No Bleaching' : datum.Seve2 == 1 ? 'Mild' : datum.Seve2 == 2 ? 'Moderate' : 'Severe'",
+      "as": "Severity_Label"
+    },
+    {
+      "calculate": "datum.Seve2",
+      "as": "Severity_Order"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "bar"
+      },
+      "encoding": {
+        "x": {
+          "field": "Year",
+          "type": "ordinal",
+          "axis": {
+            "title": "Year",
+            "labelAngle": -45,
+            "labelFontSize": 14
+          }
+        },
+        "y": {
+          "aggregate": "count",
+          "type": "quantitative",
+          "axis": {
+            "title": "Number of Survey Sites"
+          },
+          "scale": {
+            "domain": [
+              0,
+              1100
+            ]
+          }
+        },
+        "color": {
+          "field": "Severity_Label",
+          "type": "nominal",
+          "sort": [
+            "No Bleaching",
+            "Mild",
+            "Moderate",
+            "Severe"
+          ],
+          "scale": {
+            "domain": [
+              "No Bleaching",
+              "Mild",
+              "Moderate",
+              "Severe"
+            ],
+            "range": [
+              "#56B4E9",
+              "#89CFF0",
+              "#E69F00",
+              "#D55E00"
+            ]
+          },
+          "legend": {
+            "title": "Bleaching Severity",
+            "orient": "top",
+            "direction": "horizontal",
+            "titleFontSize": 15,
+            "labelFontSize": 14
+          }
+        },
+        "order": {
+          "field": "Severity_Order",
+          "sort": "ascending"
+        },
+        "tooltip": [
+          {
+            "field": "Year",
+            "type": "ordinal",
+            "title": "Year"
+          },
+          {
+            "field": "Severity_Label",
+            "type": "nominal",
+            "title": "Severity"
+          },
+          {
+            "aggregate": "count",
+            "type": "quantitative",
+            "title": "Number of Sites"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "yr": "2016",
+            "y_start": 1020,
+            "y_end": 895
+          },
+          {
+            "yr": "2017",
+            "y_start": 920,
+            "y_end": 670
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "color": "#3d5a73",
+        "strokeWidth": 1.2,
+        "strokeDash": [
+          3,
+          3
+        ],
+        "opacity": 0.7
+      },
+      "encoding": {
+        "x": {
+          "field": "yr",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "y_start",
+          "type": "quantitative"
+        },
+        "y2": {
+          "field": "y_end",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "yr": "2016",
+            "label": "Unprecedented Severity",
+            "y_pos": 1030
+          },
+          {
+            "yr": "2017",
+            "label": "Back-to-Back Event",
+            "y_pos": 930
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "bottom",
+        "fontSize": 12,
+        "fontStyle": "italic",
+        "fontWeight": 600,
+        "color": "#3d5a73",
+        "opacity": 0.9
+      },
+      "encoding": {
+        "x": {
+          "field": "yr",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "y_pos",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label",
+          "type": "nominal"
+        }
+      }
+    }
+  ],
+  "config": {
+    "background": "transparent",
+    "title": {
+      "color": "#0a1628",
+      "font": "Playfair Display",
+      "fontSize": 19,
+      "anchor": "start",
+      "fontWeight": "bold",
+      "subtitleFont": "DM Sans",
+      "subtitleFontSize": 15
+    },
+    "axis": {
+      "domainColor": "#0a1628",
+      "gridColor": "rgba(10,22,40,0.08)",
+      "labelColor": "#0a1628",
+      "tickColor": "#0a1628",
+      "titleColor": "#0a1628",
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "labelFontSize": 12,
+      "titleFontSize": 14
+    },
+    "legend": {
+      "labelColor": "#0a1628",
+      "titleColor": "#0a1628",
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "titleFontSize": 14,
+      "labelFontSize": 12
+    },
+    "view": { "stroke": null }
+  }
+}

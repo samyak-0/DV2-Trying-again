@@ -1,0 +1,259 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Major Cyclone Tracks Across the Great Barrier Reef, 2006–2024",
+    "subtitle": "Select a specific cyclone from the menu to isolate its path and track intensity across the reef corridor",
+    "subtitleColor": "#3d5a73",
+    "subtitleFont": "DM Sans"
+  },
+  "width": "container",
+  "height": 720,
+  "projection": {
+    "type": "mercator",
+    "center": [
+      149,
+      -18
+    ],
+    "scale": 2800
+  },
+  "params": [
+    {
+      "name": "storm_select",
+      "value": "Show All",
+      "bind": {
+        "input": "select",
+        "options": [
+          "Show All",
+          "DEBBIE",
+          "HAMISH",
+          "ITA",
+          "JASPER",
+          "KIRRILY",
+          "LARRY",
+          "NATHAN",
+          "YASI"
+        ],
+        "labels": [
+          "Show All Cyclones",
+          "Debbie (2017)",
+          "Hamish (2009)",
+          "Ita (2014)",
+          "Jasper (2024)",
+          "Kirrily (2024)",
+          "Larry (2006)",
+          "Nathan (2015)",
+          "Yasi (2011)"
+        ],
+        "name": "Filter Track: "
+      }
+    }
+  ],
+  "layer": [
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "countries"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#eef5ed",
+        "stroke": "#bac7be",
+        "strokeWidth": 0.7
+      }
+    },
+    {
+      "data": {
+        "url": "gbr_cyclones_8storms.csv"
+      },
+      "transform": [
+        {
+          "filter": "datum.LAT != null && datum.LON != null"
+        },
+        {
+          "filter": "storm_select == 'Show All' || datum.NAME == storm_select"
+        }
+      ],
+      "mark": {
+        "type": "line",
+        "strokeCap": "round",
+        "strokeJoin": "round",
+        "opacity": 0.9
+      },
+      "encoding": {
+        "longitude": {
+          "field": "LON",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "LAT",
+          "type": "quantitative"
+        },
+        "detail": {
+          "field": "NAME",
+          "type": "nominal"
+        },
+        "order": {
+          "field": "ISO_TIME",
+          "type": "ordinal"
+        },
+        "stroke": {
+          "field": "NAME",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "DEBBIE",
+              "HAMISH",
+              "ITA",
+              "JASPER",
+              "KIRRILY",
+              "LARRY",
+              "NATHAN",
+              "YASI"
+            ],
+            "range": [
+              "#e07b39",
+              "#1a7ab5",
+              "#2e8b57",
+              "#f4b47a",
+              "#4fb3d9",
+              "#0e4d7a",
+              "#6b8fa8",
+              "#3d5a73"
+            ]
+          },
+          "legend": {
+            "title": "Cyclone Track",
+            "orient": "bottom",
+            "direction": "horizontal",
+            "columns": 3,
+            "symbolType": "stroke",
+            "symbolStrokeWidth": 4,
+            "titleColor": "#0a1628",
+            "labelColor": "#0a1628"
+          }
+        },
+        "strokeWidth": {
+          "field": "WMO_WIND",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0,
+              120
+            ],
+            "range": [
+              1.5,
+              6
+            ]
+          },
+          "legend": null
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "lon": 146.0,
+            "lat": -16.2,
+            "label": "Debbie (2017)",
+            "name": "DEBBIE"
+          },
+          {
+            "lon": 151.8,
+            "lat": -11.5,
+            "label": "Hamish (2009)",
+            "name": "HAMISH"
+          },
+          {
+            "lon": 143.5,
+            "lat": -9.5,
+            "label": "Ita (2014)",
+            "name": "ITA"
+          },
+          {
+            "lon": 154.2,
+            "lat": -16.5,
+            "label": "Jasper (2024)",
+            "name": "JASPER"
+          },
+          {
+            "lon": 152.8,
+            "lat": -14.2,
+            "label": "Kirrily (2024)",
+            "name": "KIRRILY"
+          },
+          {
+            "lon": 152.5,
+            "lat": -23.5,
+            "label": "Larry (2006)",
+            "name": "LARRY"
+          },
+          {
+            "lon": 149.5,
+            "lat": -10.8,
+            "label": "Nathan (2015)",
+            "name": "NATHAN"
+          },
+          {
+            "lon": 148.5,
+            "lat": -19.5,
+            "label": "Yasi (2011)",
+            "name": "YASI"
+          }
+        ]
+      },
+      "transform": [
+        {
+          "filter": "storm_select == 'Show All' || datum.name == storm_select"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "fontSize": 16,
+        "fontWeight": 600,
+        "color": "#0a1628",
+        "opacity": 0.85
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label",
+          "type": "nominal"
+        }
+      }
+    }
+  ],
+  "config": {
+    "background": "transparent",
+    "title": {
+      "color": "#0a1628",
+      "font": "Playfair Display",
+      "fontSize": 22,
+      "subtitleFont": "DM Sans",
+      "subtitleFontSize": 18,
+      "anchor": "start",
+      "fontWeight": "bold"
+    },
+    "legend": {
+      "labelColor": "#0a1628",
+      "titleColor": "#0a1628",
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "titleFontSize": 18,
+      "labelFontSize": 16
+    },
+    "view": {
+      "stroke": null
+    }
+  }
+}

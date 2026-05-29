@@ -1,0 +1,142 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Live Coral Cover Across the Great Barrier Reef",
+    "subtitle": "Each circle is one monitored reef · Size and colour both encode coral cover · Select year and shelf zone to explore",
+    "subtitleColor": "#3d5a73",
+    "subtitleFont": "DM Sans",
+    "subtitleFontSize": 14
+  },
+  "width": 520,
+  "height": 640,
+  "projection": {
+    "type": "mercator",
+    "center": [148, -17.5],
+    "scale": 2400
+  },
+  "params": [
+    {
+      "name": "map_year",
+      "value": 2023,
+      "bind": {
+        "input": "select",
+        "options": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023],
+        "labels": ["2016","2017","2018","2019","2020","2021","2022","2023 (Latest)"],
+        "name": "Survey Year: "
+      }
+    },
+    {
+      "name": "shelf_filter",
+      "value": "All",
+      "bind": {
+        "input": "select",
+        "options": ["All", "I", "M", "O"],
+        "labels": ["All Shelf Zones", "Inshore", "Mid-Shelf", "Outer-Shelf"],
+        "name": "Shelf Zone: "
+      }
+    }
+  ],
+  "layer": [
+    {
+      "data": { "values": [{}] },
+      "mark": { "type": "rect", "fill": "#daeef7", "opacity": 1 },
+      "encoding": {
+        "x":  { "value": 0   },
+        "y":  { "value": 0   },
+        "x2": { "value": 520 },
+        "y2": { "value": 640 }
+      }
+    },
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json",
+        "format": { "type": "topojson", "feature": "countries" }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#d6ecd2",
+        "stroke": "#5a8a69",
+        "strokeWidth": 0.7
+      }
+    },
+    {
+      "data": { "url": "manta-tow-by-reef.csv" },
+      "transform": [
+        { "filter": "datum.REPORT_YEAR == map_year" },
+        { "filter": "shelf_filter == 'All' || datum.SHELF == shelf_filter" },
+        {
+          "calculate": "datum.SECTOR == 'CG' ? 'Far North' : datum.SECTOR == 'PC' ? 'Princess Charlotte' : datum.SECTOR == 'CL' ? 'Cooktown–Lizard' : datum.SECTOR == 'CA' ? 'Cairns' : datum.SECTOR == 'IN' ? 'Innisfail' : datum.SECTOR == 'TO' ? 'Townsville' : datum.SECTOR == 'WH' ? 'Whitsundays' : datum.SECTOR == 'PO' ? 'Pompey' : datum.SECTOR == 'SW' ? 'Swains' : datum.SECTOR == 'CU' ? 'Capricorn–Bunker' : datum.SECTOR == 'CB' ? 'Mackay' : datum.SECTOR",
+          "as": "Sector_Name"
+        },
+        {
+          "calculate": "datum.SHELF == 'I' ? 'Inshore' : datum.SHELF == 'M' ? 'Mid-Shelf' : 'Outer-Shelf'",
+          "as": "Shelf_Name"
+        }
+      ],
+      "mark": {
+        "type": "circle",
+        "opacity": 0.82,
+        "stroke": "rgba(10,22,40,0.25)",
+        "strokeWidth": 0.8
+      },
+      "encoding": {
+        "longitude": { "field": "LONGITUDE", "type": "quantitative" },
+        "latitude":  { "field": "LATITUDE",  "type": "quantitative" },
+        "color": {
+          "field": "MEAN_LIVE_CORAL",
+          "type": "quantitative",
+          "scale": {
+            "domain": [0, 10, 25, 50],
+            "range":  ["#D55E00", "#E69F00", "#56B4E9", "#023e8a"]
+          },
+          "legend": {
+            "title": "Live Coral Cover (%)",
+            "orient": "top-right",
+            "gradientLength": 140,
+            "titleFontSize": 13,
+            "labelFontSize": 11,
+            "titleColor": "#0a1628",
+            "labelColor": "#0a1628"
+          }
+        },
+        "size": {
+          "field": "MEAN_LIVE_CORAL",
+          "type": "quantitative",
+          "scale": { "domain": [0, 70], "range": [18, 320] },
+          "legend": null
+        },
+        "tooltip": [
+          { "field": "REEF_NAME",       "type": "nominal",     "title": "Reef"              },
+          { "field": "Sector_Name",     "type": "nominal",     "title": "Sector"            },
+          { "field": "Shelf_Name",      "type": "nominal",     "title": "Shelf Zone"        },
+          { "field": "MEAN_LIVE_CORAL", "type": "quantitative","title": "Live Coral (%)",   "format": ".1f" },
+          { "field": "MEAN_DEAD_CORAL", "type": "quantitative","title": "Dead Coral (%)",   "format": ".1f" },
+          { "field": "MEAN_COTS_PER_TOW","type":"quantitative","title": "COTS per Tow",     "format": ".2f" },
+          { "field": "TOWS",            "type": "quantitative","title": "Survey Tows"       }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "background": "#daeef7",
+    "title": {
+      "color": "#0a1628",
+      "font": "Playfair Display",
+      "fontSize": 18,
+      "anchor": "start",
+      "fontWeight": "bold",
+      "subtitleFont": "DM Sans",
+      "subtitleFontSize": 14,
+      "subtitleColor": "#3d5a73"
+    },
+    "legend": {
+      "labelColor": "#0a1628",
+      "titleColor": "#0a1628",
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "titleFontSize": 13,
+      "labelFontSize": 11
+    },
+    "view": { "stroke": null }
+  }
+}

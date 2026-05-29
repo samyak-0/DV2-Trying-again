@@ -1,0 +1,245 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Hard Coral Cover Across All Monitored Reefs, 1993–2024",
+    "subtitle": "Each cell = mean hard coral cover (%) · Amber = degraded · Blue = healthy · Blank = no survey · Reefs grouped north to south",
+    "subtitleColor": "#3d5a73",
+    "subtitleFont": "DM Sans",
+    "subtitleFontSize": 15
+  },
+  "width": "container",
+  "height": 720,
+  "data": {
+    "url": "coral.csv"
+  },
+  "transform": [
+    {
+      "filter": "datum.HC != null"
+    },
+    {
+      "calculate": "datum.DISTURBANCE == 'b' ? 4 : datum.DISTURBANCE == 'c' ? 3 : datum.DISTURBANCE == 's' ? 2 : datum.DISTURBANCE == 'f' ? 1 : 0",
+      "as": "d_priority"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "mean",
+          "field": "HC",
+          "as": "Mean_HC"
+        },
+        {
+          "op": "max",
+          "field": "d_priority",
+          "as": "max_d"
+        }
+      ],
+      "groupby": [
+        "REEF",
+        "yr",
+        "NRM_REGION"
+      ]
+    },
+    {
+      "calculate": "datum.max_d == 4 ? 'B' : datum.max_d == 3 ? 'C' : datum.max_d == 2 ? 'S' : datum.max_d == 1 ? 'F' : ''",
+      "as": "Disturbance_Code"
+    },
+    {
+      "calculate": "datum.max_d == 4 ? 'Bleaching' : datum.max_d == 3 ? 'COTS outbreak' : datum.max_d == 2 ? 'Storm / Cyclone' : datum.max_d == 1 ? 'Flood' : 'None'",
+      "as": "Disturbance_Label"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "rect",
+        "stroke": "rgba(255,255,255,0.4)",
+        "strokeWidth": 0.5
+      },
+      "encoding": {
+        "x": {
+          "field": "yr",
+          "type": "ordinal",
+          "axis": {
+            "title": "Survey Year",
+            "labelAngle": -45,
+            "labelFontSize": 12,
+            "titleFontSize": 15,
+            "titleColor": "#0a1628",
+            "labelColor": "#0a1628"
+          }
+        },
+        "y": {
+          "field": "REEF",
+          "type": "nominal",
+          "sort": [
+            "Barnards",
+            "Bedarra",
+            "Dunk North",
+            "Dunk South",
+            "Fitzroy East",
+            "Fitzroy West",
+            "Fitzroy West LTMP",
+            "Franklands East",
+            "Franklands West",
+            "Green",
+            "High East",
+            "High West",
+            "King",
+            "Low Isles",
+            "Snapper North",
+            "Snapper South",
+            "Havannah",
+            "Havannah North",
+            "Lady Elliot",
+            "Magnetic",
+            "Middle Rf",
+            "Middle Rf LTMP",
+            "Palms East",
+            "Palms West",
+            "Pandora",
+            "Pandora North",
+            "Border",
+            "Daydream",
+            "Dent",
+            "Double Cone",
+            "Hayman",
+            "Hook",
+            "Langford",
+            "Pine",
+            "Seaforth",
+            "Shute Harbour",
+            "Barren",
+            "Keppels South",
+            "Middle",
+            "North Keppel",
+            "Peak",
+            "Pelican"
+          ],
+          "axis": {
+            "title": null,
+            "labelFontSize": 12,
+            "labelColor": "#0a1628"
+          }
+        },
+        "color": {
+          "field": "Mean_HC",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0,
+              10,
+              25,
+              50
+            ],
+            "range": [
+              "#D55E00",
+              "#E69F00",
+              "#56B4E9",
+              "#023e8a"
+            ]
+          },
+          "legend": {
+            "title": "Mean Hard Coral Cover (%)",
+            "orient": "bottom",
+            "direction": "horizontal",
+            "gradientLength": 220,
+            "titleFontSize": 14,
+            "labelFontSize": 12,
+            "titleColor": "#0a1628",
+            "labelColor": "#0a1628"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "REEF",
+            "type": "nominal",
+            "title": "Reef"
+          },
+          {
+            "field": "NRM_REGION",
+            "type": "nominal",
+            "title": "Region"
+          },
+          {
+            "field": "yr",
+            "type": "ordinal",
+            "title": "Year"
+          },
+          {
+            "field": "Mean_HC",
+            "type": "quantitative",
+            "title": "Hard Coral Cover (%)",
+            "format": ".1f"
+          },
+          {
+            "field": "Disturbance_Label",
+            "type": "nominal",
+            "title": "Disturbance"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.max_d >= 2"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "fontSize": 9,
+        "fontWeight": "bold",
+        "color": "white",
+        "baseline": "middle",
+        "align": "center",
+        "opacity": 0.9
+      },
+      "encoding": {
+        "x": {
+          "field": "yr",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "REEF",
+          "type": "nominal",
+          "sort": [
+            "Barnards",
+            "Bedarra",
+            "Dunk North",
+            "Dunk South",
+            "Fitzroy East",
+            "Fitzroy West",
+            "Fitzroy West LTMP",
+            "Franklands East",
+            "Franklands West",
+            "Green",
+            "High East",
+            "High West",
+            "King",
+            "Low Isles",
+            "Snapper North",
+            "Snapper South",
+            "Havannah",
+            "Havannah North",
+            "Lady Elliot",
+            "Magnetic",
+            "Middle Rf",
+            "Middle Rf LTMP",
+            "Palms East",
+            "Palms West",
+            "Pandora",
+            "Pandora North",
+            "Border",
+            "Daydream",
+            "Dent",
+            "Double Cone",
+            "Hayman",
+            "Hook",
+            "Langford",
+            "Pine",
+            "Seaforth",
+            "Shute Harbour",
+            "Barren",
+            "Keppels South",
+            "Middle",
+            "

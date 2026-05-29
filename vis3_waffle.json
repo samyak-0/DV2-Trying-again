@@ -1,0 +1,127 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "What the Marine Park Is Made Of",
+    "subtitle": "Each square = 1% of total Marine Park area · Only 33% is strictly no-take",
+    "subtitleColor": "#3d5a73",
+    "subtitleFont": "DM Sans",
+    "subtitleFontSize": 15
+  },
+  "width": "container",
+  "height": 360,
+  "data": {
+    "sequence": {
+      "start": 0,
+      "stop": 100,
+      "as": "id"
+    }
+  },
+  "transform": [
+    {
+      "calculate": "floor(datum.id / 10)",
+      "as": "row"
+    },
+    {
+      "calculate": "datum.id % 10",
+      "as": "col"
+    },
+    {
+      "calculate": "datum.id < 33 ? 'No-Take Zone (33%)' : datum.id < 67 ? 'Habitat Protection (34%)' : 'General Use (33%)'",
+      "as": "Zone_Type"
+    },
+    {
+      "calculate": "datum.id < 33 ? 2 : datum.id < 67 ? 1 : 0",
+      "as": "Zone_Order"
+    }
+  ],
+  "mark": {
+    "type": "rect",
+    "width": {
+      "band": 0.82
+    },
+    "height": {
+      "band": 0.82
+    },
+    "stroke": "#ffffff",
+    "strokeWidth": 2,
+    "cornerRadius": 3
+  },
+  "encoding": {
+    "x": {
+      "field": "col",
+      "type": "ordinal",
+      "axis": null,
+      "scale": {
+        "paddingInner": 0.1
+      }
+    },
+    "y": {
+      "field": "row",
+      "type": "ordinal",
+      "axis": null,
+      "sort": "descending",
+      "scale": {
+        "paddingInner": 0.1
+      }
+    },
+    "color": {
+      "field": "Zone_Type",
+      "type": "nominal",
+      "sort": {
+        "field": "Zone_Order",
+        "order": "descending"
+      },
+      "scale": {
+        "domain": [
+          "No-Take Zone (33%)",
+          "Habitat Protection (34%)",
+          "General Use (33%)"
+        ],
+        "range": [
+          "#009E73",
+          "#0072B2",
+          "#89CFF0"
+        ]
+      },
+      "legend": {
+        "title": "Management Zone",
+        "orient": "bottom",
+        "direction": "vertical",
+        "titleFontSize": 16,
+        "labelFontSize": 16,
+        "symbolSize": 150
+      }
+    },
+    "tooltip": [
+      {
+        "field": "Zone_Type",
+        "type": "nominal",
+        "title": "Zone Classification"
+      }
+    ]
+  },
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null,
+      "step": 28
+    },
+    "title": {
+      "color": "#0a1628",
+      "font": "Playfair Display",
+      "fontSize": 19,
+      "anchor": "start",
+      "fontWeight": "bold",
+      "subtitleFont": "DM Sans",
+      "subtitleFontSize": 15
+    },
+    "legend": {
+      "labelColor": "#0a1628",
+      "titleColor": "#0a1628",
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "titleFontSize": 16,
+      "labelFontSize": 16
+    }
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Seafloor Composition by Region",
+    "subtitle": "Proportional cover of hard coral, soft coral, and macroalgae · Use the year selector to track change over time · Note: soft coral is low at these inshore sites",
+    "subtitleColor": "#3d5a73",
+    "subtitleFont": "DM Sans",
+    "subtitleFontSize": 15
+  },
+  "width": "container",
+  "height": 380,
+  "params": [
+    {
+      "name": "benthic_year",
+      "value": 2023,
+      "bind": {
+        "input": "range",
+        "min": 1993,
+        "max": 2024,
+        "step": 1,
+        "name": "Survey Year: "
+      }
+    }
+  ],
+  "data": {
+    "url": "coral.csv"
+  },
+  "transform": [
+    {
+      "filter": "datum.yr == benthic_year"
+    },
+    {
+      "filter": "datum.HC != null && datum.HC > 0 && datum.SC != null && datum.MA != null"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "mean",
+          "field": "HC",
+          "as": "Hard Coral"
+        },
+        {
+          "op": "mean",
+          "field": "SC",
+          "as": "Soft Coral"
+        },
+        {
+          "op": "mean",
+          "field": "MA",
+          "as": "Macroalgae"
+        }
+      ],
+      "groupby": [
+        "NRM_REGION"
+      ]
+    },
+    {
+      "fold": [
+        "Hard Coral",
+        "Soft Coral",
+        "Macroalgae"
+      ],
+      "as": [
+        "Benthic_Component",
+        "Cover_Value"
+      ]
+    },
+    {
+      "filter": "datum.Cover_Value != null && datum.Cover_Value >= 0"
+    }
+  ],
+  "mark": {
+    "type": "bar",
+    "stroke": "#ffffff",
+    "strokeWidth": 1.5,
+    "cornerRadius": 2
+  },
+  "encoding": {
+    "y": {
+      "field": "NRM_REGION",
+      "type": "nominal",
+      "axis": {
+        "title": null,
+        "labelFontSize": 15
+      },
+      "sort": [
+        "Wet Tropics",
+        "Fitzroy",
+        "Mackay Whitsunday",
+        "Burdekin"
+      ]
+    },
+    "x": {
+      "field": "Cover_Value",
+      "type": "quantitative",
+      "stack": "normalize",
+      "axis": {
+        "title": "Proportional Seafloor Cover",
+        "format": "%",
+        "grid": true
+      }
+    },
+    "color": {
+      "field": "Benthic_Component",
+      "type": "nominal",
+      "scale": {
+        "domain": [
+          "Hard Coral",
+          "Soft Coral",
+          "Macroalgae"
+        ],
+        "range": [
+          "#0072B2",
+          "#56B4E9",
+          "#E69F00"
+        ]
+      },
+      "legend": {
+        "title": "Seafloor Cover Type",
+        "orient": "bottom",
+        "direction": "horizontal",
+        "titleFontSize": 15,
+        "labelFontSize": 14,
+        "symbolSize": 150
+      }
+    },
+    "order": {
+      "field": "Benthic_Component",
+      "sort": "ascending"
+    },
+    "tooltip": [
+      {
+        "field": "NRM_REGION",
+        "type": "nominal",
+        "title": "Region"
+      },
+      {
+        "field": "Benthic_Component",
+        "type": "nominal",
+        "title": "Cover Type"
+      },
+      {
+        "field": "Cover_Value",
+        "type": "quantitative",
+        "title": "Mean Cover (%)",
+        "format": ".1f"
+      }
+    ]
+  },
+  "config": {
+    "background": "transparent",
+    "title": {
+      "color": "#0a1628",
+      "font": "Playfair Display",
+      "fontSize": 19,
+      "anchor": "start",
+      "fontWeight": "bold",
+      "subtitleFont": "DM Sans",
+      "subtitleFontSize": 15
+    },
+    "axis": {
+      "domainColor": "#0a1628",
+      "gridColor": "rgba(10,22,40,0.08)",
+      "labelColor": "#0a1628",
+      "tickColor": "#0a1628",
+      "titleColor": "#0a1628",
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "labelFontSize": 12,
+      "titleFontSize": 14
+    },
+    "legend": {
+      "labelColor": "#0a1628",
+      "titleColor": "#0a1628",
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "titleFontSize": 15,
+      "labelFontSize": 14
+    },
+    "view": { "stroke": null }
+  }
+}

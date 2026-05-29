@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentinels of the Sea — Great Barrier Reef Crisis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- HERO -->
+    <header class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <p class="hero-eyebrow">A Data Story by Samyak Narendrakumar Chincholikar · May 2026</p>
+            <h1 class="hero-title">Sentinels<br><em>of the Sea</em></h1>
+            <p class="hero-sub">The Great Barrier Reef stretches 2,300 kilometres along Australia's Queensland coast — the largest living structure on Earth, visible from space, home to 1,500 species of fish, and worth an estimated $6.4 billion to the Australian economy every year.<br><br>It is also under siege.</p>
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <span class="stat-num">2,300<span class="stat-unit">km</span></span>
+                    <span class="stat-label">Length of reef system</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-num">$6.4<span class="stat-unit">B</span></span>
+                    <span class="stat-label">Annual economic value</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-num">6</span>
+                    <span class="stat-label">Mass bleaching events since 1998</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-num">50<span class="stat-unit">%</span></span>
+                    <span class="stat-label">Coral lost since 1995</span>
+                </div>
+            </div>
+        </div>
+        <svg class="hero-art" width="100%" viewBox="0 0 680 320" role="img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+            <style>
+                .ra { fill: none; stroke: rgba(168,220,232,0.38); stroke-linecap: round; stroke-linejoin: round; }
+                .rd { fill: none; stroke: rgba(168,220,232,0.18); stroke-linecap: round; stroke-linejoin: round; }
+                .fi { fill: none; stroke: rgba(168,220,232,0.3); stroke-linecap: round; stroke-linejoin: round; }
+            </style>
+            <path class="rd" stroke-width="1" d="M20 295 Q120 288 200 292 Q310 298 420 290 Q530 283 660 290"/>
+            <g transform="translate(140,295)">
+                <line class="ra" stroke-width="1.2" x1="0" y1="0" x2="0" y2="-90"/>
+                <line class="ra" stroke-width="1" x1="0" y1="-40" x2="-22" y2="-78"/>
+                <line class="ra" stroke-width="1" x1="0" y1="-40" x2="18" y2="-72"/>
+                <line class="ra" stroke-width="0.8" x1="-22" y1="-78" x2="-32" y2="-105"/>
+                <line class="ra" stroke-width="0.8" x1="-22" y1="-78" x2="-10" y2="-108"/>
+                <line class="ra" stroke-width="0.8" x1="18" y1="-72" x2="8" y2="-100"/>
+                <line class="ra" stroke-width="0.8" x1="18" y1="-72" x2="30" y2="-98"/>
+                <line class="ra" stroke-width="0.7" x1="-32" y1="-105" x2="-38" y2="-122"/>
+                <line class="ra" stroke-width="0.7" x1="-10" y1="-108" x2="-14" y2="-126"/>
+                <line class="ra" stroke-width="0.7" x1="8" y1="-100" x2="4" y2="-118"/>
+                <line class="ra" stroke-width="0.7" x1="30" y1="-98" x2="36" y2="-116"/>
+                <line class="ra" stroke-width="0.6" x1="0" y1="-65" x2="-14" y2="-82"/>
+                <line class="ra" stroke-width="0.6" x1="0" y1="-65" x2="12" y2="-80"/>
+            </g>
+            <g transform="translate(310,295)">
+                <line class="ra" stroke-width="1.2" x1="0" y1="0" x2="0" y2="-70"/>
+                <line class="ra" stroke-width="1" x1="0" y1="-30" x2="-18" y2="-58"/>
+                <line class="ra" stroke-width="1" x1="0" y1="-30" x2="16" y2="-54"/>
+                <line class="ra" stroke-width="0.8" x1="-18" y1="-58" x2="-26" y2="-80"/>
+                <line class="ra" stroke-width="0.8" x1="-18" y1="-58" x2="-8" y2="-82"/>
+                <line class="ra" stroke-width="0.8" x1="16" y1="-54" x2="6" y2="-76"/>
+                <line class="ra" stroke-width="0.8" x1="16" y1="-54" x2="24" y2="-74"/>
+                <line class="ra" stroke-width="0.7" x1="-26" y1="-80" x2="-30" y2="-96"/>
+                <line class="ra" stroke-width="0.7" x1="24" y1="-74" x2="28" y2="-90"/>
+            </g>
+            <g transform="translate(490,295)">
+                <line class="rd" stroke-width="1" x1="0" y1="0" x2="0" y2="-55"/>
+                <line class="rd" stroke-width="0.8" x1="0" y1="-20" x2="-28" y2="-62"/>
+                <line class="rd" stroke-width="0.8" x1="0" y1="-20" x2="26" y2="-58"/>
+                <line class="rd" stroke-width="0.7" x1="-28" y1="-62" x2="-36" y2="-82"/>
+                <line class="rd" stroke-width="0.7" x1="26" y1="-58" x2="32" y2="-76"/>
+                <line class="rd" stroke-width="0.7" x1="0" y1="-55" x2="-10" y2="-76"/>
+                <line class="rd" stroke-width="0.7" x1="0" y1="-55" x2="10" y2="-74"/>
+            </g>
+            <g transform="translate(60,295)">
+                <line class="rd" stroke-width="0.9" x1="0" y1="0" x2="0" y2="-42"/>
+                <line class="rd" stroke-width="0.7" x1="0" y1="-18" x2="-14" y2="-40"/>
+                <line class="rd" stroke-width="0.7" x1="0" y1="-18" x2="12" y2="-38"/>
+                <line class="rd" stroke-width="0.6" x1="-14" y1="-40" x2="-18" y2="-56"/>
+                <line class="rd" stroke-width="0.6" x1="12" y1="-38" x2="16" y2="-52"/>
+            </g>
+            <path class="rd" stroke-width="1.2" d="M230 295 Q218 260 226 230 Q234 200 220 172"/>
+            <path class="rd" stroke-width="0.7" d="M220 172 Q210 160 215 148 M220 172 Q230 158 228 144"/>
+            <path class="rd" stroke-width="1" d="M245 295 Q256 268 248 242 Q240 216 252 194"/>
+            <path class="rd" stroke-width="0.6" d="M252 194 Q244 182 248 170 M252 194 Q262 180 260 166"/>
+            <path class="rd" stroke-width="0.8" d="M580 295 Q570 272 576 252 Q582 232 572 214"/>
+            <path class="rd" stroke-width="0.5" d="M572 214 Q564 204 568 194 M572 214 Q580 202 578 190"/>
+            <g transform="translate(200,190)"><path class="fi" stroke-width="0.9" d="M0 0 Q12 -6 18 0 Q12 6 0 0Z"/><path class="fi" stroke-width="0.9" d="M0 0 Q-6 -5 -10 -2 M0 0 Q-6 5 -10 2"/></g>
+            <g transform="translate(380,155)"><path class="fi" stroke-width="0.8" d="M0 0 Q9 -4 13 0 Q9 4 0 0Z"/><path class="fi" stroke-width="0.8" d="M0 0 Q-5 -4 -8 -2 M0 0 Q-5 4 -8 2"/></g>
+            <g transform="translate(90,210)"><path class="fi" stroke-width="0.9" d="M0 0 Q14 -7 20 0 Q14 7 0 0Z"/><path class="fi" stroke-width="0.9" d="M0 0 Q-7 -5 -12 -2 M0 0 Q-7 5 -12 2"/></g>
+            <g transform="translate(560,175)"><path class="fi" stroke-width="0.7" d="M0 0 Q8 -3 11 0 Q8 3 0 0Z"/><path class="fi" stroke-width="0.7" d="M0 0 Q-4 -3 -7 -2 M0 0 Q-4 3 -7 2"/></g>
+            <g transform="translate(430,120)"><path class="fi" stroke-width="0.8" d="M0 0 Q10 -5 15 0 Q10 5 0 0Z"/><path class="fi" stroke-width="0.8" d="M0 0 Q-6 -4 -9 -2 M0 0 Q-6 4 -9 2"/></g>
+            <circle cx="170" cy="245" r="1.5" fill="rgba(168,220,232,0.22)"/>
+            <circle cx="175" cy="232" r="1" fill="rgba(168,220,232,0.16)"/>
+            <circle cx="320" cy="260" r="1.5" fill="rgba(168,220,232,0.2)"/>
+            <circle cx="100" cy="250" r="1.2" fill="rgba(168,220,232,0.18)"/>
+        </svg>
+        <div class="scroll-hint">
+            <span>Scroll to explore</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- ACT DIVIDER -->
+        <div class="act-divider">
+            <div class="act-line"></div>
+            <span class="act-label">Act I</span>
+            <div class="act-line"></div>
+        </div>
+
+        <!-- ACT 1 -->
+        <section class="act" id="act1">
+            <div class="act-header">
+                <h2 class="act-title">Scale &amp; Value</h2>
+                <p class="act-subtitle">Before we count what's been lost, we need to understand what exists</p>
+                <svg class="act-art" viewBox="0 0 680 180" role="img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><g transform="translate(580,168)"><line fill="none" stroke="rgba(79,179,217,0.38)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" x1="0" y1="0" x2="0" y2="-55"/><line fill="none" stroke="rgba(79,179,217,0.38)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" x1="0" y1="-55" x2="-28" y2="-95"/><line fill="none" stroke="rgba(79,179,217,0.38)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" x1="0" y1="-55" x2="24" y2="-90"/><line fill="none" stroke="rgba(79,179,217,0.38)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" x1="-28" y1="-95" x2="-44" y2="-125"/><line fill="none" stroke="rgba(79,179,217,0.38)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" x1="-28" y1="-95" x2="-14" y2="-128"/><line fill="none" stroke="rgba(79,179,217,0.38)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" x1="24" y1="-90" x2="12" y2="-120"/><line fill="none" stroke="rgba(79,179,217,0.38)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" x1="24" y1="-90" x2="36" y2="-118"/><line fill="none" stroke="rgba(79,179,217,0.38)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" x1="-44" y1="-125" x2="-52" y2="-148"/><line fill="none" stroke="rgba(79,179,217,0.38)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" x1="-44" y1="-125" x2="-34" y2="-150"/><line fill="none" stroke="rgba(79,179,217,0.38)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" x1="-14" y1="-128" x2="-20" y2="-152"/><line fill="none" stroke="rgba(79,179,217,0.38)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" x1="-14" y1="-128" x2="-4" y2="-150"/><line fill="none" stroke="rgba(79,179,217,0.38)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" x1="12" y1="-120" x2="4" y2="-144"/><line fill="none" stroke="rgba(79,179,217,0.38)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" x1="12" y1="-120" x2="20" y2="-142"/><line fill="none" stroke="rgba(79,179,217,0.38)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" x1="36" y1="-118" x2="28" y2="-140"/><line fill="none" stroke="rgba(79,179,217,0.38)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" x1="36" y1="-118" x2="46" y2="-138"/><line fill="none" stroke="rgba(79,179,217,0.2)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.6" x1="0" y1="-28" x2="-16" y2="-48"/><line fill="none" stroke="rgba(79,179,217,0.2)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.6" x1="0" y1="-28" x2="14" y2="-46"/><line fill="none" stroke="rgba(79,179,217,0.2)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.6" x1="-52" y1="-148" x2="-56" y2="-160"/><line fill="none" stroke="rgba(79,179,217,0.2)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.6" x1="46" y1="-138" x2="50" y2="-152"/></g></svg>
+            </div>
+
+            <div class="narrative-block">
+                <div class="narrative-text">
+                    <h3>A Continent Beneath the Waves</h3>
+                    <p>The Great Barrier Reef Marine Park spans 344,400 square kilometres — larger than the United Kingdom. But it is not a single pristine wilderness. It is a patchwork of management zones, each with different rules, different protections, and vastly different ecological outcomes. Some sectors are fully off-limits to human activity. Others permit fishing, shipping, and tourism.</p>
+                    <p>Understanding this patchwork is essential context for everything that follows. The reefs that have fared best under environmental pressure are overwhelmingly concentrated in the most strictly protected zones — a pattern that will emerge again and again throughout this story.</p>
+                    <div class="callout-stat">
+                        <span class="callout-num">33%</span>
+                        <span class="callout-desc">of the reef is fully protected from fishing — the rest remains open to varying degrees of human use</span>
+                    </div>
+                </div>
+                <div class="narrative-vis">
+                    <div class="vis-container" id="vis1"></div>
+                </div>
+            </div>
+
+            <div class="chart-row two-col">
+                <div class="chart-block">
+                    <h4 class="chart-title">Management Zone Distribution by Sector</h4>
+                    <p class="chart-caption">How Marine Park protection zones are spread across the Northern, Central and Southern reef — the Northern sector carries proportionally more no-take zones, which shapes its recovery pattern in later acts.</p>
+                    <div class="vis-container" id="vis2">
+                        <div class="vis-placeholder">
+                            <div class="placeholder-icon">📊</div>
+                            <p>Vis 2: Stacked Bar Chart</p>
+                            <p class="placeholder-sub">Zone type × latitudinal sector</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-block">
+                    <h4 class="chart-title">What the Marine Park Is Made Of</h4>
+                    <p class="chart-caption">Each square represents 1% of total Marine Park area. The diversity of zone types reveals a complex management challenge — with full no-take protection covering only a third of the park.</p>
+                    <div class="vis-container" id="vis3">
+                        <div class="vis-placeholder">
+                            <div class="placeholder-icon">⬛</div>
+                            <p>Vis 3: Waffle Chart</p>
+                            <p class="placeholder-sub">100-square grid · Colour = zone type</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ACT DIVIDER -->
+        <div class="act-divider">
+            <div class="act-line"></div>
+            <span class="act-label">Act II</span>
+            <div class="act-line"></div>
+        </div>
+
+        <!-- ACT 2 -->
+        <section class="act" id="act2">
+            <div class="act-header">
+                <h2 class="act-title">The Reef Under Siege</h2>
+                <p class="act-subtitle">Three threats converging — and they don't take turns</p>
+                <svg class="act-art" viewBox="0 0 680 180" role="img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><g transform="translate(590,168)"><line fill="none" stroke="rgba(168,220,232,0.28)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" x1="0" y1="0" x2="0" y2="-48"/><line fill="none" stroke="rgba(168,220,232,0.28)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" x1="0" y1="-48" x2="-24" y2="-80"/><line fill="none" stroke="rgba(168,220,232,0.28)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" x1="0" y1="-48" x2="20" y2="-76"/><line fill="none" stroke="rgba(168,220,232,0.28)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.9" x1="-24" y1="-80" x2="-34" y2="-104"/><line fill="none" stroke="rgba(168,220,232,0.28)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.9" x1="-24" y1="-80" x2="-12" y2="-106"/><line fill="none" stroke="rgba(168,220,232,0.28)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.9" x1="20" y1="-76" x2="10" y2="-100"/><line fill="none" stroke="rgba(168,220,232,0.28)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.9" x1="20" y1="-76" x2="30" y2="-98"/><line fill="none" stroke="rgba(168,220,232,0.28)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.7" x1="-34" y1="-104" x2="-40" y2="-120"/><line fill="none" stroke="rgba(168,220,232,0.28)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.7" x1="30" y1="-98" x2="34" y2="-114"/><path fill="none" stroke="rgba(224,123,57,0.22)" stroke-linecap="round" stroke-width="1" d="M-38 -132 Q-32 -142 -36 -152 Q-30 -162 -34 -172"/><path fill="none" stroke="rgba(224,123,57,0.18)" stroke-linecap="round" stroke-width="0.8" d="M-16 -128 Q-10 -138 -14 -150 Q-8 -160 -12 -170"/><path fill="none" stroke="rgba(224,123,57,0.22)" stroke-linecap="round" stroke-width="1" d="M6 -122 Q12 -134 8 -146 Q14 -158 10 -168"/><path fill="none" stroke="rgba(224,123,57,0.18)" stroke-linecap="round" stroke-width="0.8" d="M32 -118 Q38 -130 34 -142 Q40 -154 36 -164"/><path fill="none" stroke="rgba(224,123,57,0.14)" stroke-linecap="round" stroke-width="0.6" d="M-52 -126 Q-46 -138 -50 -150 Q-44 -160 -48 -170"/></g></svg>
+            </div>
+
+            <div class="narrative-block reverse">
+                <div class="narrative-text">
+                    <h3>Heat, Predators, and the Breaking Point</h3>
+                    <p>The reef faces a triple threat that compounds with every passing decade. Rising ocean temperatures trigger mass bleaching events — when water stays too warm for too long, corals expel their symbiotic algae and turn ghostly white. If the heat persists, they die. Crown-of-Thorns Starfish, whose population explosions are linked to agricultural runoff, consume coral tissue faster than it can regrow. And cyclones physically shatter reef structures, setting recovery back by years.</p>
+                    <p>What makes this crisis different from historical disturbances is the scale and pace. The chart below tracks how many reef sites recorded bleaching — and how severe it was — across two decades of survey data. Before 2016, most years saw only scattered mild bleaching at a handful of sites. Then came 2016, and everything changed.</p>
+                    <div class="callout-stat warning">
+                        <span class="callout-num">2016–17</span>
+                        <span class="callout-desc">Back-to-back mass bleaching events — the first time in recorded history the reef had no recovery window between events</span>
+                    </div>
+                </div>
+                <div class="narrative-vis">
+                    <div class="vis-container" id="vis4"></div>
+                </div>
+            </div>
+
+            <div class="chart-row full-width">
+                <div class="chart-block">
+                    <h4 class="chart-title">Coral Bleaching Severity at GBR Survey Sites, 1998–2017</h4>
+                    <p class="chart-caption">Each bar shows how many reef survey sites recorded each bleaching severity level in a given year — from no bleaching (blue) through mild, moderate, and severe (dark red). Most years before 2016 show a handful of affected sites at most. In 2016 and 2017, the number of sites recording moderate and severe bleaching dwarfs anything previously observed — a step change with no historical precedent in this dataset.</p>
+                    <div class="vis-container wide" id="vis5"></div>
+                </div>
+            </div>
+
+            <div class="chart-row full-width">
+                <div class="chart-block">
+                    <h4 class="chart-title">Crown-of-Thorns Starfish vs Coral Cover — Which Reefs Are Most at Risk?</h4>
+                    <p class="chart-caption">Each point is a reef site. Where starfish density rises, coral cover collapses. <strong>Drag a selection box</strong> over any cluster of points to see the specific reefs affected — the bar chart updates in real time to show their names and locations.</p>
+                    <div class="vis-container wide" id="vis6">
+                        <div class="vis-placeholder interactive">
+                            <div class="placeholder-icon">🔗</div>
+                            <p>Vis 6: Linked Scatter + Bar Dashboard</p>
+                            <p class="placeholder-sub">Interactive · Drag to select · Bar chart updates on selection</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ACT DIVIDER -->
+        <div class="act-divider">
+            <div class="act-line"></div>
+            <span class="act-label">Act III</span>
+            <div class="act-line"></div>
+        </div>
+
+        <!-- ACT 3 -->
+        <section class="act" id="act3">
+            <div class="act-header">
+                <h2 class="act-title">Counting the Cost</h2>
+                <p class="act-subtitle">The cumulative damage — sector by sector, year by year</p>
+                <svg class="act-art" viewBox="0 0 680 180" role="img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><g transform="translate(594,90)"><path fill="none" stroke="rgba(107,143,168,0.32)" stroke-linecap="round" stroke-width="1" d="M72 8 A72 72 0 1 1 8 -68"/><path fill="none" stroke="rgba(107,143,168,0.3)" stroke-linecap="round" stroke-width="0.9" d="M58 4 A58 58 0 1 1 6 -54"/><path fill="none" stroke="rgba(107,143,168,0.28)" stroke-linecap="round" stroke-width="0.9" d="M44 2 A44 44 0 1 1 4 -42"/><path fill="none" stroke="rgba(107,143,168,0.26)" stroke-linecap="round" stroke-width="0.8" d="M32 0 A32 32 0 1 1 2 -30"/><path fill="none" stroke="rgba(107,143,168,0.24)" stroke-linecap="round" stroke-width="0.8" d="M22 -2 A22 22 0 1 1 0 -22"/><path fill="none" stroke="rgba(107,143,168,0.2)" stroke-linecap="round" stroke-width="0.7" d="M14 -4 A14 14 0 1 1 -2 -14"/><path fill="none" stroke="rgba(107,143,168,0.16)" stroke-linecap="round" stroke-width="0.6" d="M8 -6 A8 8 0 1 1 -4 -8"/><line stroke="rgba(107,143,168,0.18)" stroke-width="0.6" x1="72" y1="0" x2="78" y2="0"/><line stroke="rgba(107,143,168,0.18)" stroke-width="0.6" x1="0" y1="-72" x2="0" y2="-78"/><line stroke="rgba(107,143,168,0.18)" stroke-width="0.6" x1="-72" y1="0" x2="-78" y2="0"/><line stroke="rgba(107,143,168,0.18)" stroke-width="0.6" x1="0" y1="72" x2="0" y2="78"/><circle cx="0" cy="0" r="2.5" fill="rgba(107,143,168,0.32)"/><circle cx="0" cy="0" r="1" fill="rgba(107,143,168,0.48)"/></g></svg>
+            </div>
+
+            <div class="narrative-block">
+                <div class="narrative-text">
+                    <h3>A Reef Transformed</h3>
+                    <p>Coral cover — the most fundamental measure of reef health — has declined across most of the Great Barrier Reef over the past four decades. But the decline is not uniform. Some sectors have suffered catastrophically. Others have partially held on. And when a cyclone strikes, the damage it leaves behind follows the storm's exact path with devastating precision.</p>
+                    <p>The composition of the reef itself has shifted. Where hard coral once dominated the seafloor, macroalgae and rubble now fill the space. In the worst-affected sectors, what was once a three-dimensional coral garden has become a flat, featureless gravel field — structurally simple, ecologically impoverished, and slow to recover even when threats are removed.</p>
+                    <div class="callout-stat warning">
+                        <span class="callout-num">weeks</span>
+                        <span class="callout-desc">A cyclone can undo a decade of coral growth in a matter of weeks — recovery always moves slower than destruction</span>
+                    </div>
+                </div>
+                <div class="narrative-vis">
+                    <div class="chart-block">
+                        <h4 class="chart-title">Seafloor Composition by Region</h4>
+                        <p class="chart-caption">How the balance between living coral, soft coral, and encroaching macroalgae shifts across regions — use the year slider to see change over time.</p>
+                        <div class="vis-container" id="vis7"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pull-quote">
+                <p>"A cyclone can destroy in hours what took the reef ten years to build — and the recovery window is shrinking."</p>
+            </div>
+
+            <div class="chart-row full-width">
+                <div class="chart-block">
+                    <h4 class="chart-title">Three Decades of Growth and Loss</h4>
+                    <p class="chart-caption">Each bar shows the year-on-year change in mean hard coral cover across monitored inshore reefs. Green bars indicate net recovery; amber bars indicate net loss. Major disturbance events are annotated directly. Notice the asymmetry: coral grows back slowly, year by year — but a single bleaching event or cyclone can erase a decade of progress in months.</p>
+                    <div class="vis-container wide" id="vis8"></div>
+                </div>
+            </div>
+
+            <div class="chart-row full-width">
+                <div class="chart-block">
+                    <h4 class="chart-title">Cyclone Tracks and Storm Damage Across the Reef</h4>
+                    <p class="chart-caption">The background shows reef sectors coloured by the percentage of coral cover destroyed by storms. Overlaid are the actual physical paths of eight major cyclones — from Hamish in 2009 to Jasper in 2024. Trace any line and you can see the damage pattern it carved into the reef below.</p>
+                    <div class="vis-container wide tall" id="vis9"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ACT DIVIDER -->
+        <div class="act-divider">
+            <div class="act-line"></div>
+            <span class="act-label">Act IV</span>
+            <div class="act-line"></div>
+        </div>
+
+        <!-- ACT 4 -->
+        <section class="act" id="act4">
+            <div class="act-header">
+                <h2 class="act-title">Is There Still Hope?</h2>
+                <p class="act-subtitle">What targeted conservation actually achieves — and what it cannot</p>
+                <svg class="act-art" viewBox="0 0 680 180" role="img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><g transform="translate(530,165)"><line fill="none" stroke="rgba(107,143,168,0.28)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" x1="0" y1="0" x2="0" y2="-50"/><line fill="none" stroke="rgba(107,143,168,0.28)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" x1="0" y1="-50" x2="-20" y2="-82"/><line fill="none" stroke="rgba(107,143,168,0.28)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" x1="0" y1="-50" x2="18" y2="-78"/><line fill="none" stroke="rgba(107,143,168,0.28)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" x1="-20" y1="-82" x2="-28" y2="-106"/><line fill="none" stroke="rgba(107,143,168,0.28)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" x1="-20" y1="-82" x2="-10" y2="-108"/><line fill="none" stroke="rgba(107,143,168,0.28)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" x1="18" y1="-78" x2="8" y2="-102"/><line fill="none" stroke="rgba(107,143,168,0.28)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" x1="18" y1="-78" x2="26" y2="-100"/><line fill="none" stroke="rgba(107,143,168,0.28)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.6" x1="-28" y1="-106" x2="-32" y2="-120"/><line fill="none" stroke="rgba(107,143,168,0.28)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.6" x1="26" y1="-100" x2="28" y2="-114"/></g><g transform="translate(614,165)"><line fill="none" stroke="rgba(79,179,217,0.45)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" x1="0" y1="0" x2="0" y2="-50"/><line fill="none" stroke="rgba(79,179,217,0.45)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" x1="0" y1="-50" x2="-20" y2="-82"/><line fill="none" stroke="rgba(79,179,217,0.45)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" x1="0" y1="-50" x2="18" y2="-78"/><line fill="none" stroke="rgba(79,179,217,0.45)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" x1="-20" y1="-82" x2="-28" y2="-106"/><line fill="none" stroke="rgba(79,179,217,0.45)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" x1="-20" y1="-82" x2="-10" y2="-108"/><line fill="none" stroke="rgba(79,179,217,0.45)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" x1="18" y1="-78" x2="8" y2="-102"/><line fill="none" stroke="rgba(79,179,217,0.45)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" x1="18" y1="-78" x2="26" y2="-100"/><line fill="none" stroke="rgba(79,179,217,0.45)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.6" x1="-28" y1="-106" x2="-32" y2="-120"/><line fill="none" stroke="rgba(79,179,217,0.45)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.6" x1="26" y1="-100" x2="28" y2="-114"/><circle fill="rgba(86,180,158,0.42)" cx="-10" cy="-62" r="2.8"/><circle fill="rgba(86,180,158,0.42)" cx="-24" cy="-94" r="2.4"/><circle fill="rgba(86,180,158,0.42)" cx="13" cy="-59" r="2.6"/><circle fill="rgba(86,180,158,0.42)" cx="22" cy="-89" r="2.4"/><circle fill="rgba(86,180,158,0.42)" cx="0" cy="-50" r="3"/><circle fill="rgba(86,180,158,0.42)" cx="-20" cy="-82" r="2.8"/><circle fill="rgba(86,180,158,0.42)" cx="18" cy="-78" r="2.6"/><circle fill="rgba(86,180,158,0.42)" cx="-32" cy="-120" r="1.6"/><circle fill="rgba(86,180,158,0.42)" cx="28" cy="-114" r="1.6"/></g></svg>
+            </div>
+
+            <div class="narrative-block reverse">
+                <div class="narrative-text">
+                    <h3>Recovery Is Real — But Uneven</h3>
+                    <p>The story of the reef is not only one of loss. The Crown-of-Thorns Starfish control program — where trained divers inject individual starfish with ox bile — has shown measurable results on specific reefs. Marine National Park zones, free from fishing pressure, consistently outperform adjacent general use zones when thermal stress hits. Targeted protection works.</p>
+                    <p>But there is a limit to what local management can achieve when the ocean itself is warming. No marine park boundary can stop a bleaching event driven by global atmospheric temperatures. The reefs that recovered in the slope graph below did so because they had the twin advantages of strict protection and slightly cooler water. Those advantages are narrowing every decade.</p>
+                    <p>The window is not yet closed. But it is closing.</p>
+                    <div class="callout-stat positive">
+                        <span class="callout-num">↑</span>
+                        <span class="callout-desc">Reefs inside no-take Marine National Park zones show consistently stronger recovery trajectories than those open to fishing and human activity</span>
+                    </div>
+                </div>
+                <div class="narrative-vis">
+                    <div class="chart-block">
+                        <h4 class="chart-title">Reef Recovery After Crown-of-Thorns Outbreaks</h4>
+                        <p class="chart-caption">Each line connects one reef's coral cover before its first COTS outbreak to its cover after the last recorded outbreak. Green lines slope upward — partial recovery. Amber lines slope downward — continued decline despite the threat passing. Five of ten reefs recovered; five did not.</p>
+                        <div class="vis-container tall" id="vis10"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pull-quote">
+                <p>"Five of ten reefs recovered after COTS outbreaks passed. The ones that did not share a common thread: compounding disturbances with no recovery window."</p>
+            </div>
+
+            <div class="chart-row full-width">
+                <div class="chart-block">
+                    <h4 class="chart-title">Every Reef, Every Year: A 30-Year Coral Cover Record</h4>
+                    <p class="chart-caption">Each cell shows mean hard coral cover (%) for one reef in one year. Blue cells are a healthy reef; amber and red signal decline. Letters mark recorded disturbances: B = bleaching, C = Crown-of-Thorns outbreak, S = storm or cyclone. Reefs are ordered geographically north to south. Hover any cell for detail. The vertical dashed lines mark mass bleaching events — notice how bleaching scars propagate across entire rows of reefs simultaneously.</p>
+                    <div class="vis-container" style="min-height: 660px;" id="vis11"></div>
+                </div>
+            </div>
+            <div class="closing-essay">
+                <blockquote class="closing-quote">
+                    "Recovery is possible. But it requires sustained protection, continued intervention, and most urgently, the reduction of thermal stress that no marine park boundary can stop."
+                </blockquote>
+                <p>The Great Barrier Reef is not a relic. It is alive — right now, growing, spawning, hosting. What this data shows is not an obituary but a warning. The reef's future is not yet written. What is clear is that the decisions made in the next decade — on emissions, on fishing pressure, on water quality, on funding for intervention programs — will determine whether future Australians inherit a living reef or a bleached monument to what once was.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-col">
+                <h4>About This Visualisation</h4>
+                <p>Created as part of FIT2179 Data Visualisation 2, Monash University, Semester 1 2026. Designed for an Australian general audience with no specialist knowledge required.</p>
+                <p class="footer-author">Samyak Narendrakumar Chincholikar · May 2026</p>
+            </div>
+            <div class="footer-col">
+                <h4>Data Sources</h4>
+                <ul class="footer-sources">
+                    <li><strong>AIMS LTMP</strong> — Australian Institute of Marine Science Long-Term Monitoring Program. Manta tow surveys 1993–2023 and fixed-site benthic surveys. <a href="https://eatlas.org.au/gbr/ltmp-data" target="_blank">eatlas.org.au/gbr/ltmp-data</a></li>
+                    <li><strong>NOAA / Coral Reef Watch</strong> — Coral bleaching multifactor dataset including DHW, SSTA, and per-site bleaching severity scores, 1998–2017. <a href="https://coralreefwatch.noaa.gov" target="_blank">coralreefwatch.noaa.gov</a></li>
+                    <li><strong>IBTrACS</strong> — NOAA International Best Track Archive for Climate Stewardship. South Pacific cyclone tracks v04r01. <a href="https://www.ncei.noaa.gov/products/international-best-track-archive" target="_blank">ncei.noaa.gov</a></li>
+                    <li><strong>GBRMPA</strong> — Great Barrier Reef Marine Park Authority. Zoning GIS data. <a href="https://geohub-gbrmpa.hub.arcgis.com" target="_blank">geohub-gbrmpa.hub.arcgis.com</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Acknowledgements</h4>
+                <p>AI tools (Claude, Anthropic) were used to assist with code generation, grammar checking, and narrative refinement. All visualisation design, data selection, and analytical interpretation are the author's own work.</p>
+                <p>Icons: Unicode emoji. No copyrighted imagery used. All data is publicly available under open-access licences.</p>
+            </div>
+        </div>
+        <div class="footer-base">
+            <p>© 2026 Samyak Narendrakumar Chincholikar · FIT2179 Monash University · Released for academic assessment</p>
+        </div>
+    </footer>
+
+    <script src="charts.js"></script>
+
+</body>
+</html>

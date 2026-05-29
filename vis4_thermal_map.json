@@ -1,0 +1,220 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Thermal Stress Across GBR Survey Sites",
+    "subtitle": "Degree Heating Weeks (DHW) — values above 8 trigger mass bleaching · Select a year to explore spatial patterns",
+    "subtitleColor": "#3d5a73",
+    "subtitleFont": "DM Sans",
+    "subtitleFontSize": 15
+  },
+  "width": 760,
+  "height": 580,
+  "params": [
+    {
+      "name": "thermal_year",
+      "value": 2016,
+      "bind": {
+        "input": "select",
+        "options": [
+          1998,
+          2002,
+          2006,
+          2009,
+          2014,
+          2015,
+          2016,
+          2017
+        ],
+        "labels": [
+          "1998 — Bleaching",
+          "2002 — Bleaching",
+          "2006",
+          "2009",
+          "2014",
+          "2015",
+          "2016 — Worst",
+          "2017 — Back-to-Back"
+        ],
+        "name": "Survey Year: "
+      }
+    }
+  ],
+  "projection": {
+    "type": "mercator",
+    "center": [
+      148,
+      -18
+    ],
+    "scale": 1800
+  },
+  "layer": [
+    {
+      "data": { "values": [{}] },
+      "mark": {
+        "type": "rect",
+        "fill": "#daeef7",
+        "opacity": 1
+      },
+      "encoding": {
+        "x": { "value": 0 },
+        "y": { "value": 0 },
+        "x2": { "value": 760 },
+        "y2": { "value": 580 }
+      }
+    },
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "countries"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#d6ecd2",
+        "stroke": "#5a8a69",
+        "strokeWidth": 0.7
+      }
+    },
+    {
+      "data": {
+        "url": "coral_bleaching_multifactor_dataset.csv"
+      },
+      "transform": [
+        {
+          "filter": "datum.Year == thermal_year && datum.LAT >= -25 && datum.LAT <= -10 && datum.LON >= 142 && datum.LON <= 155 && datum.DHW != null"
+        }
+      ],
+      "mark": {
+        "type": "circle",
+        "opacity": 0.85,
+        "stroke": "rgba(10,22,40,0.15)",
+        "strokeWidth": 0.5
+      },
+      "encoding": {
+        "longitude": {
+          "field": "LON",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "LAT",
+          "type": "quantitative"
+        },
+        "color": {
+          "field": "DHW",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0,
+              4,
+              8,
+              12
+            ],
+            "range": [
+              "#89CFF0",
+              "#F0E442",
+              "#E69F00",
+              "#D55E00"
+            ]
+          },
+          "legend": {
+            "title": "Degree Heating Weeks",
+            "orient": "bottom-right",
+            "gradientLength": 140,
+            "titleFontSize": 14,
+            "labelFontSize": 12,
+            "titleColor": "#0a1628",
+            "labelColor": "#0a1628"
+          }
+        },
+        "size": {
+          "field": "DHW",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0,
+              12
+            ],
+            "range": [
+              20,
+              150
+            ]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {
+            "field": "LAT",
+            "type": "quantitative",
+            "title": "Latitude",
+            "format": ".2f"
+          },
+          {
+            "field": "LON",
+            "type": "quantitative",
+            "title": "Longitude",
+            "format": ".2f"
+          },
+          {
+            "field": "DHW",
+            "type": "quantitative",
+            "title": "Degree Heating Weeks",
+            "format": ".1f"
+          },
+          {
+            "field": "SSTA",
+            "type": "quantitative",
+            "title": "SSTA (°C)",
+            "format": ".2f"
+          },
+          {
+            "field": "Year",
+            "type": "quantitative",
+            "title": "Year"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "lon": 145.5,
+            "lat": -10.5,
+            "label": "Far North"
+          },
+          {
+            "lon": 145.8,
+            "lat": -16.9,
+            "label": "Cairns"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text", "fontSize": 9, "color": "#3d5a73",
+        "fontStyle": "italic", "opacity": 0.7
+      },
+      "encoding": {
+        "longitude": { "field": "lon", "type": "quantitative" },
+        "latitude":  { "field": "lat", "type": "quantitative" },
+        "text":      { "field": "label", "type": "nominal" }
+      }
+    }
+  ],
+  "config": {
+    "background": "#daeef7",
+    "title": {
+      "color": "#0a1628", "font": "Playfair Display", "fontSize": 19,
+      "anchor": "start", "fontWeight": "bold",
+      "subtitleFont": "DM Sans", "subtitleFontSize": 15,
+      "subtitleColor": "#3d5a73"
+    },
+    "legend": {
+      "labelColor": "#0a1628", "titleColor": "#0a1628",
+      "labelFont": "DM Sans", "titleFont": "DM Sans",
+      "titleFontSize": 14, "labelFontSize": 12
+    },
+    "view": { "stroke": null }
+  }
+}

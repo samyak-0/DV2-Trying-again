@@ -1,0 +1,145 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Reef Recovery After Crown-of-Thorns Outbreaks",
+    "subtitle": "Each row is one reef · Circle = Before COTS · Diamond = After COTS · Green = recovered · Amber = declined",
+    "subtitleColor": "#3d5a73",
+    "subtitleFont": "DM Sans",
+    "subtitleFontSize": 15
+  },
+  "width": "container",
+  "height": 480,
+  "data": {
+    "values": [
+      { "reef": "Franklands West",   "before": 46.0, "after": 54.9, "change": "+8.9", "outcome": "Recovery" },
+      { "reef": "Snapper North",     "before": 51.5, "after": 15.3, "change": "−36.2","outcome": "Declined" },
+      { "reef": "Snapper South",     "before": 42.7, "after": 39.7, "change": "−3.0", "outcome": "Declined" },
+      { "reef": "High West",         "before": 39.7, "after": 36.4, "change": "−3.3", "outcome": "Declined" },
+      { "reef": "Low Isles",         "before": 35.0, "after": 33.4, "change": "−1.6", "outcome": "Declined" },
+      { "reef": "Fitzroy East",      "before": 32.8, "after": 36.7, "change": "+3.9", "outcome": "Recovery" },
+      { "reef": "Fitzroy West LTMP", "before": 32.0, "after": 36.5, "change": "+4.5", "outcome": "Recovery" },
+      { "reef": "Fitzroy West",      "before": 26.7, "after": 30.2, "change": "+3.5", "outcome": "Recovery" },
+      { "reef": "Havannah North",    "before": 26.0, "after": 8.5,  "change": "−17.5","outcome": "Declined" },
+      { "reef": "Green",             "before": 9.5,  "after": 11.5, "change": "+2.0", "outcome": "Recovery" }
+    ]
+  },
+  "layer": [
+    {
+      "mark": { "type": "rule", "strokeWidth": 2.5 },
+      "encoding": {
+        "y": {
+          "field": "reef", "type": "nominal",
+          "sort": ["Franklands West","Snapper North","Snapper South","High West","Low Isles","Fitzroy East","Fitzroy West LTMP","Fitzroy West","Havannah North","Green"],
+          "axis": { "title": null, "labelFontSize": 14, "labelFont": "DM Sans", "labelColor": "#0a1628", "ticks": false, "domain": false, "labelPadding": 10 }
+        },
+        "x":  { "field": "before", "type": "quantitative" },
+        "x2": { "field": "after" },
+        "color": {
+          "field": "outcome", "type": "nominal",
+          "scale": { "domain": ["Recovery","Declined"], "range": ["#009E73","#E69F00"] },
+          "legend": null
+        },
+        "opacity": { "value": 0.5 }
+      }
+    },
+    {
+      "mark": { "type": "point", "shape": "circle", "filled": true, "size": 160, "stroke": "#fff", "strokeWidth": 1.5 },
+      "encoding": {
+        "y": {
+          "field": "reef", "type": "nominal",
+          "sort": ["Franklands West","Snapper North","Snapper South","High West","Low Isles","Fitzroy East","Fitzroy West LTMP","Fitzroy West","Havannah North","Green"]
+        },
+        "x": { "field": "before", "type": "quantitative" },
+        "color": {
+          "field": "outcome", "type": "nominal",
+          "scale": { "domain": ["Recovery","Declined"], "range": ["#009E73","#E69F00"] },
+          "legend": null
+        },
+        "opacity": { "value": 0.55 }
+      }
+    },
+    {
+      "mark": { "type": "point", "shape": "diamond", "filled": true, "size": 200, "stroke": "#fff", "strokeWidth": 1.5 },
+      "encoding": {
+        "y": {
+          "field": "reef", "type": "nominal",
+          "sort": ["Franklands West","Snapper North","Snapper South","High West","Low Isles","Fitzroy East","Fitzroy West LTMP","Fitzroy West","Havannah North","Green"]
+        },
+        "x": { "field": "after", "type": "quantitative" },
+        "color": {
+          "field": "outcome", "type": "nominal",
+          "scale": { "domain": ["Recovery","Declined"], "range": ["#009E73","#E69F00"] },
+          "legend": {
+            "title": "Post-COTS Outcome", "orient": "top", "direction": "horizontal",
+            "titleFontSize": 14, "labelFontSize": 14, "symbolSize": 180
+          }
+        }
+      }
+    },
+    {
+      "mark": { "type": "text", "fontSize": 12, "fontWeight": 600, "dy": -14, "fontFamily": "DM Sans" },
+      "encoding": {
+        "y": {
+          "field": "reef", "type": "nominal",
+          "sort": ["Franklands West","Snapper North","Snapper South","High West","Low Isles","Fitzroy East","Fitzroy West LTMP","Fitzroy West","Havannah North","Green"]
+        },
+        "x": {
+          "aggregate": "mean",
+          "field": "after",
+          "type": "quantitative"
+        },
+        "text": { "field": "change", "type": "nominal" },
+        "color": {
+          "field": "outcome", "type": "nominal",
+          "scale": { "domain": ["Recovery","Declined"], "range": ["#009E73","#D55E00"] },
+          "legend": null
+        }
+      }
+    },
+    {
+      "data": { "values": [
+        { "x": 3,  "label": "● Before COTS" },
+        { "x": 38, "label": "◆ After COTS"  }
+      ]},
+      "mark": { "type": "text", "fontSize": 12, "fontWeight": 600, "color": "#3d5a73", "opacity": 0.7, "align": "left" },
+      "encoding": {
+        "x": { "field": "x", "type": "quantitative" },
+        "y": { "value": 8 },
+        "text": { "field": "label", "type": "nominal" }
+      }
+    }
+  ],
+  "encoding": {
+    "x": {
+      "type": "quantitative",
+      "scale": { "domain": [0, 65] },
+      "axis": {
+        "title": "Mean Hard Coral Cover (%)",
+        "grid": true, "gridColor": "rgba(10,22,40,0.07)", "gridDash": [3,3],
+        "titleFontSize": 14, "labelFontSize": 13,
+        "titleColor": "#0a1628", "labelColor": "#0a1628",
+        "titleFont": "DM Sans", "labelFont": "DM Sans"
+      }
+    }
+  },
+  "config": {
+    "background": "transparent",
+    "title": {
+      "color": "#0a1628", "font": "Playfair Display", "fontSize": 19,
+      "anchor": "start", "fontWeight": "bold",
+      "subtitleFont": "DM Sans", "subtitleFontSize": 15
+    },
+    "axis": {
+      "domainColor": "#0a1628", "gridColor": "rgba(10,22,40,0.08)",
+      "labelColor": "#0a1628", "tickColor": "#0a1628", "titleColor": "#0a1628",
+      "labelFont": "DM Sans", "titleFont": "DM Sans",
+      "labelFontSize": 13, "titleFontSize": 14
+    },
+    "legend": {
+      "labelColor": "#0a1628", "titleColor": "#0a1628",
+      "labelFont": "DM Sans", "titleFont": "DM Sans",
+      "titleFontSize": 14, "labelFontSize": 14
+    },
+    "view": { "stroke": null }
+  }
+}

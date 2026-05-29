@@ -1,0 +1,421 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "spacing": 35,
+  "params": [
+    {
+      "name": "choose_year",
+      "value": 2000,
+      "bind": {
+        "input": "select",
+        "options": [
+          1993,
+          1995,
+          1998,
+          2000,
+          2002,
+          2005,
+          2007,
+          2010,
+          2012,
+          2015,
+          2017,
+          2020,
+          2023
+        ],
+        "name": "Select Survey Year: "
+      }
+    },
+    {
+      "name": "brush",
+      "select": {
+        "type": "interval",
+        "encodings": [
+          "x",
+          "y"
+        ]
+      },
+      "views": [
+        "scatterplot"
+      ]
+    }
+  ],
+  "vconcat": [
+    {
+      "width": "container",
+      "height": 375,
+      "title": {
+        "text": "Crown-of-Thorns Starfish Density vs. Live Coral Cover",
+        "subtitle": "COTS eat coral faster than it regrows — drag a box to select reefs and update the chart below",
+        "subtitleColor": "#3d5a73",
+        "subtitleFont": "DM Sans",
+        "subtitleFontSize": 15
+      },
+      "data": {
+        "url": "manta-tow-by-reef.csv"
+      },
+      "transform": [
+        {
+          "filter": "datum.REPORT_YEAR == choose_year"
+        },
+        {
+          "filter": "datum.MEAN_COTS_PER_TOW > 0"
+        },
+        {
+          "filter": "!test(/^[0-9]/, datum.REEF_NAME)"
+        },
+        {
+          "calculate": "datum.SECTOR == 'CG' ? 'Far North' : datum.SECTOR == 'PC' ? 'Princess Charlotte' : datum.SECTOR == 'CL' ? 'Cooktown\u2013Lizard' : datum.SECTOR == 'CA' ? 'Cairns' : datum.SECTOR == 'IN' ? 'Innisfail' : datum.SECTOR == 'TO' ? 'Townsville' : datum.SECTOR == 'WH' ? 'Whitsundays' : datum.SECTOR == 'PO' ? 'Pompey' : datum.SECTOR == 'SW' ? 'Swains' : datum.SECTOR == 'CU' ? 'Capricorn\u2013Bunker' : datum.SECTOR == 'CB' ? 'Mackay' : datum.SECTOR",
+          "as": "Sector_Name"
+        }
+      ],
+      "layer": [
+        {
+          "name": "scatterplot",
+          "mark": {
+            "type": "circle",
+            "size": 90,
+            "strokeWidth": 1
+          },
+          "encoding": {
+            "x": {
+              "field": "MEAN_COTS_PER_TOW",
+              "type": "quantitative",
+              "scale": {
+                "padding": 40
+              },
+              "axis": {
+                "title": "Crown-of-Thorns Starfish (Mean per Tow)",
+                "titleFontSize": 13,
+                "labelFontSize": 12
+              }
+            },
+            "y": {
+              "field": "MEAN_LIVE_CORAL",
+              "type": "quantitative",
+              "axis": {
+                "title": "Live Coral Cover (%)",
+                "titleFontSize": 13,
+                "labelFontSize": 12
+              }
+            },
+            "color": {
+              "condition": {
+                "param": "brush",
+                "field": "Sector_Name",
+                "type": "nominal",
+                "scale": {
+                  "domain": [
+                    "Far North",
+                    "Princess Charlotte",
+                    "Cooktown\u2013Lizard",
+                    "Cairns",
+                    "Innisfail",
+                    "Townsville",
+                    "Whitsundays",
+                    "Pompey",
+                    "Swains",
+                    "Capricorn\u2013Bunker",
+                    "Mackay"
+                  ],
+                  "range": [
+                    "#0e4d7a",
+                    "#1a7ab5",
+                    "#4fb3d9",
+                    "#a8dce8",
+                    "#2e8b57",
+                    "#7ec8a0",
+                    "#e07b39",
+                    "#f4b47a",
+                    "#6b8fa8",
+                    "#3d5a73",
+                    "#0a1628"
+                  ]
+                },
+                "legend": {
+                  "title": "Reef Sector",
+                  "orient": "right",
+                  "titleFontSize": 13,
+                  "labelFontSize": 12
+                }
+              },
+              "value": "rgba(10,22,40,0.12)"
+            },
+            "opacity": {
+              "condition": {
+                "param": "brush",
+                "value": 0.9
+              },
+              "value": 0.12
+            },
+            "stroke": {
+              "condition": {
+                "param": "brush",
+                "value": "#0a1628"
+              },
+              "value": "transparent"
+            },
+            "tooltip": [
+              {
+                "field": "REEF_NAME",
+                "type": "nominal",
+                "title": "Reef"
+              },
+              {
+                "field": "Sector_Name",
+                "type": "nominal",
+                "title": "Sector"
+              },
+              {
+                "field": "MEAN_LIVE_CORAL",
+                "type": "quantitative",
+                "title": "Coral Cover (%)",
+                "format": ".1f"
+              },
+              {
+                "field": "MEAN_COTS_PER_TOW",
+                "type": "quantitative",
+                "title": "COTS per Tow",
+                "format": ".2f"
+              },
+              {
+                "field": "SHELF",
+                "type": "nominal",
+                "title": "Shelf Zone"
+              }
+            ]
+          }
+        },
+        {
+          "transform": [
+            {
+              "filter": {
+                "param": "brush"
+              }
+            },
+            {
+              "window": [
+                {
+                  "op": "rank",
+                  "as": "rank"
+                }
+              ],
+              "sort": [
+                {
+                  "field": "MEAN_COTS_PER_TOW",
+                  "order": "descending"
+                }
+              ]
+            },
+            {
+              "filter": "datum.rank <= 3"
+            }
+          ],
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "dx": 6,
+            "fontSize": 11,
+            "color": "#0a1628"
+          },
+          "encoding": {
+            "x": {
+              "field": "MEAN_COTS_PER_TOW",
+              "type": "quantitative",
+              "scale": {
+                "padding": 40
+              }
+            },
+            "y": {
+              "field": "MEAN_LIVE_CORAL",
+              "type": "quantitative"
+            },
+            "text": {
+              "field": "REEF_NAME",
+              "type": "nominal"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "width": "container",
+      "height": 300,
+      "title": {
+        "text": "Coral Cover at Selected Reefs",
+        "subtitle": "Top 12 reefs in your selection sorted by coral cover — drag a box above to populate",
+        "subtitleColor": "#3d5a73",
+        "subtitleFont": "DM Sans",
+        "subtitleFontSize": 14
+      },
+      "data": {
+        "url": "manta-tow-by-reef.csv"
+      },
+      "transform": [
+        {
+          "filter": "datum.REPORT_YEAR == choose_year"
+        },
+        {
+          "filter": "datum.MEAN_COTS_PER_TOW > 0"
+        },
+        {
+          "filter": "!test(/^[0-9]/, datum.REEF_NAME)"
+        },
+        {
+          "calculate": "datum.SECTOR == 'CG' ? 'Far North' : datum.SECTOR == 'PC' ? 'Princess Charlotte' : datum.SECTOR == 'CL' ? 'Cooktown\u2013Lizard' : datum.SECTOR == 'CA' ? 'Cairns' : datum.SECTOR == 'IN' ? 'Innisfail' : datum.SECTOR == 'TO' ? 'Townsville' : datum.SECTOR == 'WH' ? 'Whitsundays' : datum.SECTOR == 'PO' ? 'Pompey' : datum.SECTOR == 'SW' ? 'Swains' : datum.SECTOR == 'CU' ? 'Capricorn\u2013Bunker' : datum.SECTOR == 'CB' ? 'Mackay' : datum.SECTOR",
+          "as": "Sector_Name"
+        },
+        {
+          "calculate": "datum.REEF_NAME + ' (' + datum.Sector_Name + ')'",
+          "as": "Reef_Label"
+        },
+        {
+          "filter": {
+            "param": "brush"
+          }
+        },
+        {
+          "window": [
+            {
+              "op": "rank",
+              "as": "rank"
+            }
+          ],
+          "sort": [
+            {
+              "field": "MEAN_LIVE_CORAL",
+              "order": "descending"
+            }
+          ]
+        },
+        {
+          "filter": "datum.rank <= 12"
+        }
+      ],
+      "mark": {
+        "type": "bar",
+        "cornerRadiusEnd": 4
+      },
+      "encoding": {
+        "x": {
+          "field": "MEAN_LIVE_CORAL",
+          "type": "quantitative",
+          "axis": {
+            "title": "Live Coral Cover (%)",
+            "titleFontSize": 13,
+            "labelFontSize": 12
+          },
+          "scale": {
+            "domain": [
+              0,
+              90
+            ]
+          }
+        },
+        "y": {
+          "field": "Reef_Label",
+          "type": "nominal",
+          "axis": {
+            "title": null,
+            "labelFontSize": 11
+          },
+          "sort": "-x"
+        },
+        "color": {
+          "field": "Sector_Name",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Far North",
+              "Princess Charlotte",
+              "Cooktown\u2013Lizard",
+              "Cairns",
+              "Innisfail",
+              "Townsville",
+              "Whitsundays",
+              "Pompey",
+              "Swains",
+              "Capricorn\u2013Bunker",
+              "Mackay"
+            ],
+            "range": [
+              "#0e4d7a",
+              "#1a7ab5",
+              "#4fb3d9",
+              "#a8dce8",
+              "#2e8b57",
+              "#7ec8a0",
+              "#e07b39",
+              "#f4b47a",
+              "#6b8fa8",
+              "#3d5a73",
+              "#0a1628"
+            ]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {
+            "field": "REEF_NAME",
+            "type": "nominal",
+            "title": "Reef Name"
+          },
+          {
+            "field": "MEAN_LIVE_CORAL",
+            "type": "quantitative",
+            "title": "Coral Cover (%)",
+            "format": ".1f"
+          },
+          {
+            "field": "MEAN_COTS_PER_TOW",
+            "type": "quantitative",
+            "title": "COTS per Tow",
+            "format": ".2f"
+          }
+        ]
+      }
+    }
+  ],
+  "resolve": {
+    "legend": {
+      "color": "independent"
+    }
+  },
+  "config": {
+    "background": "transparent",
+    "title": {
+      "color": "#0a1628",
+      "font": "Playfair Display",
+      "fontSize": 19,
+      "anchor": "start",
+      "fontWeight": "bold",
+      "subtitleFont": "DM Sans",
+      "subtitleFontSize": 15
+    },
+    "axis": {
+      "domainColor": "#0a1628",
+      "gridColor": "rgba(10,22,40,0.08)",
+      "gridDash": [
+        4,
+        4
+      ],
+      "labelColor": "#0a1628",
+      "tickColor": "#0a1628",
+      "titleColor": "#0a1628",
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "labelFontSize": 12,
+      "titleFontSize": 13
+    },
+    "legend": {
+      "labelColor": "#0a1628",
+      "titleColor": "#0a1628",
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "titleFontSize": 13,
+      "labelFontSize": 12
+    },
+    "view": {
+      "stroke": null
+    }
+  }
+}

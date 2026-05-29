@@ -1,0 +1,326 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Annual Coral Cover Shifts: Growth vs Loss, 1994–2024",
+    "subtitle": "Year-over-year change in mean hard coral cover across monitored inshore reefs · Key disturbance events annotated",
+    "subtitleColor": "#3d5a73",
+    "subtitleFont": "DM Sans",
+    "subtitleFontSize": 15
+  },
+  "width": "container",
+  "height": 640,
+  "data": {
+    "values": [
+      {
+        "yr": "1994",
+        "HC": 30.02,
+        "Net_Change": 0.567,
+        "Trajectory": "Recovery / Growth",
+        "annotation": "",
+        "ann_side": 0
+      },
+      {
+        "yr": "1995",
+        "HC": 31.5,
+        "Net_Change": 1.476,
+        "Trajectory": "Recovery / Growth",
+        "annotation": "",
+        "ann_side": 0
+      },
+      {
+        "yr": "1996",
+        "HC": 33.68,
+        "Net_Change": 2.181,
+        "Trajectory": "Recovery / Growth",
+        "annotation": "",
+        "ann_side": 0
+      },
+      {
+        "yr": "1997",
+        "HC": 32.85,
+        "Net_Change": -0.828,
+        "Trajectory": "Net Loss",
+        "annotation": "",
+        "ann_side": 0
+      },
+      {
+        "yr": "1998",
+        "HC": 29.51,
+        "Net_Change": -3.341,
+        "Trajectory": "Net Loss",
+        "annotation": "Bleaching '98",
+        "ann_side": -1
+      },
+      {
+        "yr": "1999",
+        "HC": 27.0,
+        "Net_Change": -2.505,
+        "Trajectory": "Net Loss",
+        "annotation": "",
+        "ann_side": 0
+      },
+      {
+        "yr": "2000",
+        "HC": 19.98,
+        "Net_Change": -7.024,
+        "Trajectory": "Net Loss",
+        "annotation": "COTS + Storm",
+        "ann_side": -1
+      },
+      {
+        "yr": "2001",
+        "HC": 19.64,
+        "Net_Change": -0.338,
+        "Trajectory": "Net Loss",
+        "annotation": "",
+        "ann_side": 0
+      },
+      {
+        "yr": "2002",
+        "HC": 21.2,
+        "Net_Change": 1.558,
+        "Trajectory": "Recovery / Growth",
+        "annotation": "",
+        "ann_side": 0
+      },
+      {
+        "yr": "2003",
+        "HC": 20.46,
+        "Net_Change": -0.739,
+        "Trajectory": "Net Loss",
+        "annotation": "",
+        "ann_side": 0
+      },
+      {
+        "yr": "2004",
+        "HC": 21.77,
+        "Net_Change": 1.312,
+        "Trajectory": "Recovery / Growth",
+        "annotation": "",
+        "ann_side": 0
+      },
+      {
+        "yr": "2005",
+        "HC": 31.43,
+        "Net_Change": 9.657,
+        "Trajectory": "Recovery / Growth",
+        "annotation": "★ Dataset expanded",
+        "ann_side": 1
+      },
+      {
+        "yr": "2006",
+        "HC": 28.51,
+        "Net_Change": -2.924,
+        "Trajectory": "Net Loss",
+        "annotation": "",
+        "ann_side": 0
+      },
+      {
+        "yr": "2007",
+        "HC": 31.6,
+        "Net_Change": 3.092,
+        "Trajectory": "Recovery / Growth",
+        "annotation": "",
+        "ann_side": 0
+      },
+      {
+        "yr": "2008",
+        "HC": 32.55,
+        "Net_Change": 0.952,
+        "Trajectory": "Recovery / Growth",
+        "annotation": "",
+        "ann_side": 0
+      },
+      {
+        "yr": "2009",
+        "HC": 32.68,
+        "Net_Change": 0.133,
+        "Trajectory": "Recovery / Growth",
+        "annotation": "",
+        "ann_side": 0
+      },
+      {
+        "yr": "2010",
+        "HC": 31.89,
+        "Net_Change": -0.794,
+        "Trajectory": "Net Loss",
+        "annotation": "",
+        "ann_side": 0
+      },
+      {
+        "yr": "2011",
+        "HC": 23.52,
+        "Net_Change": -8.372,
+        "Trajectory": "Net Loss",
+        "annotation": "Cyclone Yasi",
+        "ann_side": -1
+      },
+      {
+        "yr": "2012",
+        "HC": 23.82,
+        "Net_Change": 0.307,
+        "Trajectory": "Recovery / Growth",
+        "annotation": "",
+        "ann_side": 0
+      },
+      {
+        "yr": "2013",
+        "HC": 25.12,
+        "Net_Change": 1.3,
+        "Trajectory": "Recovery / Growth",
+        "annotation": "",
+        "ann_side": 0
+      },
+      {
+        "yr": "2014",
+        "HC": 22.16,
+        "Net_Change": -2.967,
+        "Trajectory": "Net Loss",
+        "annotation": "",
+        "ann_side": 0
+      },
+      {
+        "yr": "2015",
+        "HC": 24.69,
+        "Net_Change": 2.532,
+        "Trajectory": "Recovery / Growth",
+        "annotation": "",
+        "ann_side": 0
+      },
+      {
+        "yr": "2016",
+        "HC": 29.55,
+        "Net_Change": 4.866,
+        "Trajectory": "Recovery / Growth",
+        "annotation": "",
+        "ann_side": 0
+      },
+      {
+        "yr": "2017",
+        "HC": 23.59,
+        "Net_Change": -5.959,
+        "Trajectory": "Net Loss",
+        "annotation": "Bleaching '17",
+        "ann_side": -1
+      },
+      {
+        "yr": "2018",
+        "HC": 23.22,
+        "Net_Change": -0.37,
+        "Trajectory": "Net Loss",
+        "annotation": "",
+        "ann_side": 0
+      },
+      {
+        "yr": "2019",
+        "HC": 26.59,
+        "Net_Change": 3.363,
+        "Trajectory": "Recovery / Growth",
+        "annotation": "",
+        "ann_side": 0
+      },
+      {
+        "yr": "2020",
+        "HC": 29.05,
+        "Net_Change": 2.46,
+        "Trajectory": "Recovery / Growth",
+        "annotation": "",
+        "ann_side": 0
+      },
+      {
+        "yr": "2021",
+        "HC": 28.02,
+        "Net_Change": -1.03,
+        "Trajectory": "Net Loss",
+        "annotation": "",
+        "ann_side": 0
+      },
+      {
+        "yr": "2022",
+        "HC": 30.75,
+        "Net_Change": 2.73,
+        "Trajectory": "Recovery / Growth",
+        "annotation": "",
+        "ann_side": 0
+      },
+      {
+        "yr": "2023",
+        "HC": 31.86,
+        "Net_Change": 1.11,
+        "Trajectory": "Recovery / Growth",
+        "annotation": "",
+        "ann_side": 0
+      },
+      {
+        "yr": "2024",
+        "HC": 26.38,
+        "Net_Change": -5.48,
+        "Trajectory": "Net Loss",
+        "annotation": "Bleaching '24",
+        "ann_side": -1
+      }
+    ]
+  },
+  "layer": [
+    {
+      "mark": { "type": "bar", "cornerRadius": 3 },
+      "encoding": {
+        "y": {
+          "field": "yr", "type": "ordinal", "sort": "descending",
+          "axis": { "title": null, "labelFontSize": 12, "labelFont": "DM Sans", "labelColor": "#0a1628" }
+        },
+        "x": {
+          "field": "Net_Change", "type": "quantitative",
+          "scale": { "domain": [-12, 12] },
+          "axis": { "title": "Net Change in Hard Coral Cover (percentage points)", "grid": true, "gridDash": [3,3], "titleFontSize": 14, "labelFontSize": 12, "titleFont": "DM Sans", "labelFont": "DM Sans", "titleColor": "#0a1628", "labelColor": "#0a1628" }
+        },
+        "color": {
+          "field": "Trajectory", "type": "nominal",
+          "scale": { "domain": ["Recovery / Growth", "Net Loss"], "range": ["#009E73", "#E69F00"] },
+          "legend": { "title": "Year Outcome", "orient": "top", "direction": "horizontal", "titleFontSize": 14, "labelFontSize": 12 }
+        },
+        "tooltip": [
+          { "field": "yr", "type": "ordinal", "title": "Year" },
+          { "field": "HC", "type": "quantitative", "title": "Mean Hard Coral (%)", "format": ".1f" },
+          { "field": "Net_Change", "type": "quantitative", "title": "Year-on-Year Change (pp)", "format": "+.2f" }
+        ]
+      }
+    },
+    {
+      "mark": { "type": "rule", "color": "rgba(10,22,40,0.35)", "strokeWidth": 1 },
+      "encoding": { "x": { "datum": 0 } }
+    },
+    {
+      "transform": [ { "filter": "datum.annotation != ''" } ],
+      "mark": {
+        "type": "text", "align": "left", "fontSize": 11, "fontStyle": "italic",
+        "color": "#0a1628", "fontWeight": 500, "dx": 4
+      },
+      "encoding": {
+        "y": { "field": "yr", "type": "ordinal", "sort": "descending" },
+        "x": { "value": 4 },
+        "text": { "field": "annotation", "type": "nominal" }
+      }
+    }
+  ],
+  "config": {
+    "background": "transparent",
+    "title": {
+      "color": "#0a1628", "font": "Playfair Display", "fontSize": 19,
+      "anchor": "start", "fontWeight": "bold",
+      "subtitleFont": "DM Sans", "subtitleFontSize": 15
+    },
+    "axis": {
+      "domainColor": "#0a1628", "gridColor": "rgba(10,22,40,0.08)",
+      "labelColor": "#0a1628", "tickColor": "#0a1628", "titleColor": "#0a1628",
+      "labelFont": "DM Sans", "titleFont": "DM Sans",
+      "labelFontSize": 12, "titleFontSize": 14
+    },
+    "legend": {
+      "labelColor": "#0a1628", "titleColor": "#0a1628",
+      "labelFont": "DM Sans", "titleFont": "DM Sans",
+      "titleFontSize": 14, "labelFontSize": 12
+    },
+    "view": { "stroke": null }
+  }
+}
